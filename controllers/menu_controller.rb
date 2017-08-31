@@ -16,6 +16,7 @@ require_relative '../models/address_book'
      puts "4 - View Entry Number n"
      puts "5 - Import entries from a CSV"
      puts "6 - Exit"
+     puts "7 - Delete ALL entries"
      print "Enter your selection: "
 
      selection = gets.to_i
@@ -45,6 +46,10 @@ require_relative '../models/address_book'
        when 6
          puts "Good-bye!"
          exit(0)
+
+       when 7
+         system "clear"
+         nuke
 
        else
          system "clear"
@@ -80,6 +85,20 @@ require_relative '../models/address_book'
 
     system "clear"
     puts "New entry created"
+   end
+
+   def nuke
+      print "Are you sure you want to delete ALL entries? (Y/N)"
+      answer = gets.chomp
+      system "clear"
+
+      if answer == "Y"
+        entries = []
+        puts "ALL ENTRIES DELETED"
+      else
+        system "clear"
+        main_menu
+      end
    end
 
    def search_entries
@@ -143,6 +162,7 @@ require_relative '../models/address_book'
     puts "m - return to main menu"
 
 
+
     selection = gets.chomp
 
     case selection
@@ -156,6 +176,8 @@ require_relative '../models/address_book'
       when "m"
         system "clear"
         main_menu
+      when "xx"
+        nuke(answer)
       else
         system "clear"
         puts "#{selection} is not a valid input"
@@ -164,9 +186,10 @@ require_relative '../models/address_book'
   end
 
 
+
   def delete_entry(entry)
-   address_book.entries.delete(entry)
-   puts "#{entry.name} has been deleted"
+     address_book.entries.delete(entry)
+     puts "#{entry.name} has been deleted"
   end
 
   def edit_entry(entry)
